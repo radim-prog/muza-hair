@@ -10,22 +10,32 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Brand colors
+        // Brand colors (warm, organic palette)
         brand: {
           burgundy: {
-            DEFAULT: '#340C0D',
-            hover: '#4A1718',
-            active: '#5A1B1D',
+            DEFAULT: '#6B4042',    // Soft burgundy (from moodboard)
+            hover: '#8B5456',
+            active: '#4A2D2F',
+            light: '#9D7678',
           },
-          ivory: '#DCCCC5',
+          cream: '#F5EFE7',        // Warm cream background
+          sand: '#E8DFD0',         // Sandy beige
+          ivory: '#FAF7F2',        // Warm white
+          taupe: '#C9B8A8',        // Warm taupe
+          rose: '#B88B8D',         // Dusty rose
         },
-        // Neutrals
+        // Warm neutrals
         neutral: {
-          '900': '#0F1214',
-          '700': '#2E2C2A',
-          '500': '#818183',
-          '300': '#BDBAB1',
-          '50': '#F5F2EE',
+          '900': '#3D3532',
+          '800': '#5C5350',
+          '700': '#7A6F6A',
+          '600': '#988D87',
+          '500': '#B6ABA4',
+          '400': '#CCC3BD',
+          '300': '#DFD8D2',
+          '200': '#EFEAE4',
+          '100': '#F7F4F0',
+          '50': '#FBFAF8',
           '0': '#FFFFFF',
         },
         // S-Shade swatches
@@ -86,6 +96,14 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      fontFamily: {
+        serif: ['Playfair Display', 'serif'],
+        sans: ['Inter', 'sans-serif'],
+      },
+      boxShadow: {
+        'soft': '0 2px 15px -3px rgba(61, 53, 50, 0.07), 0 10px 20px -2px rgba(61, 53, 50, 0.04)',
+        'soft-lg': '0 10px 40px -10px rgba(61, 53, 50, 0.1)',
       },
     },
   },
