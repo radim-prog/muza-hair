@@ -25,14 +25,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   // Load cart from localStorage on mount
   useEffect(() => {
-    const stored = localStorage.getItem(CART_STORAGE_KEY);
-    if (stored) {
-      try {
+    try {
+      const stored = localStorage.getItem(CART_STORAGE_KEY);
+      if (stored && stored.trim() !== '') {
         const parsed = JSON.parse(stored);
-        setItems(parsed);
-      } catch (e) {
-        console.error('Failed to parse cart from localStorage', e);
+        if (Array.isArray(parsed)) {
+          setItems(parsed);
+        }
       }
+    } catch (e) {
+      console.error('Failed to parse cart from localStorage', e);
+      // Clear corrupted data
+      localStorage.removeItem(CART_STORAGE_KEY);
     }
     setIsHydrated(true);
   }, []);
