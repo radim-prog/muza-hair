@@ -126,8 +126,8 @@ export default function OblibenePage() {
       careInstructions: [],
       applicationTime: 0,
       durability: 0,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
     addItem(fullProduct, 100);
   };
