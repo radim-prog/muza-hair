@@ -1,40 +1,10 @@
 import Link from 'next/link';
+import { Navigation } from '@/components/Navigation';
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-brand-ivory">
-      {/* Navigation - warm, minimal */}
-      <nav className="border-b border-brand-sand bg-brand-ivory/95 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex items-center space-x-12">
-              <h1 className="text-2xl font-serif text-brand-burgundy">Múza Hair</h1>
-              <div className="hidden md:flex space-x-8">
-                <Link href="/obchod" className="text-neutral-700 hover:text-brand-burgundy transition-colors text-sm">
-                  Obchod
-                </Link>
-                <a href="#" className="text-neutral-700 hover:text-brand-burgundy transition-colors text-sm">
-                  AI Color-Match
-                </a>
-                <a href="#" className="text-neutral-700 hover:text-brand-burgundy transition-colors text-sm">
-                  Pro kadeřnice
-                </a>
-                <a href="#" className="text-neutral-700 hover:text-brand-burgundy transition-colors text-sm">
-                  O nás
-                </a>
-              </div>
-            </div>
-            <div className="flex items-center space-x-6">
-              <button className="text-neutral-700 hover:text-brand-burgundy transition-colors text-sm">
-                Přihlásit se
-              </button>
-              <button className="bg-brand-burgundy hover:bg-brand-burgundy-hover text-brand-ivory px-6 py-2.5 rounded-full transition-all shadow-soft text-sm">
-                Košík (0)
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Hero Section - warm, elegant */}
       <section className="relative overflow-hidden bg-gradient-to-b from-brand-cream to-brand-ivory">
@@ -165,6 +135,68 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="bg-brand-ivory py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h3 className="text-4xl font-serif text-neutral-900 mb-3">
+              Co říkají naše zákaznice
+            </h3>
+            <p className="text-neutral-600">Přes 500 spokojených zákaznic po celé ČR a SK</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                name: 'Lucie K.',
+                rating: 5,
+                text: 'Perfektní match! AI Color-Match trefilo barvu na 100%. Aplikace byla snadná i doma. Nosím už 3 týdny a drží perfektně.',
+                product: 'TAPE S05 • 50 cm',
+              },
+              {
+                name: 'Markéta S.',
+                rating: 5,
+                text: 'Jako kadeřnice můžu říct, že Múza Hair je TOP kvalita. EU kvalita je opravdu remy vlasy. Absolutně doporučuji!',
+                product: 'ITIP S06 • 55 cm',
+              },
+              {
+                name: 'Petra D.',
+                rating: 5,
+                text: 'Shade-Swap program zachránil situaci! Rychlá výměna odstínu zdarma. Teď nosím extenze 4 týdny a jsem naprosto spokojená.',
+                product: 'TAPE S04 • 60 cm',
+              },
+            ].map((testimonial, idx) => (
+              <div
+                key={idx}
+                className="bg-brand-cream rounded-3xl p-8 border border-brand-sand hover:border-brand-burgundy transition-all"
+              >
+                <div className="flex gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <span key={i} className="text-xl">⭐</span>
+                  ))}
+                </div>
+                <p className="text-neutral-700 mb-6 leading-relaxed">
+                  "{testimonial.text}"
+                </p>
+                <div className="border-t border-brand-sand pt-4">
+                  <p className="font-medium text-neutral-900 mb-1">{testimonial.name}</p>
+                  <p className="text-sm text-neutral-600">{testimonial.product}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link
+              href="/recenze"
+              className="inline-block bg-brand-burgundy hover:bg-brand-burgundy-hover text-brand-ivory px-8 py-3 rounded-full transition-all"
+            >
+              Zobrazit všechny recenze →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section - soft, inviting */}
       <section className="bg-gradient-to-br from-brand-burgundy to-brand-burgundy-active py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -174,49 +206,102 @@ export default function HomePage() {
           <p className="text-xl text-brand-ivory/80 mb-10 max-w-2xl mx-auto">
             Vyzkoušej naše AI Color-Match. Nahraj 2-3 fotky a my ti doporučíme ideální odstíny.
           </p>
-          <button className="bg-brand-ivory hover:bg-brand-cream text-brand-burgundy px-10 py-4 rounded-full text-base font-medium transition-all shadow-soft-lg">
+          <Link
+            href="/ai-color-match"
+            className="inline-block bg-brand-ivory hover:bg-brand-cream text-brand-burgundy px-10 py-4 rounded-full text-base font-medium transition-all shadow-soft-lg"
+          >
             Spustit AI Color-Match →
-          </button>
+          </Link>
         </div>
       </section>
 
       {/* Footer - warm, elegant */}
       <footer className="bg-neutral-900 text-neutral-400 py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12">
             <div>
               <h5 className="text-brand-ivory font-serif text-xl mb-4">Múza Hair</h5>
-              <p className="text-sm leading-relaxed">
+              <p className="text-sm leading-relaxed mb-4">
                 E-shop pro vlasové extenze s AI Color-Match. Kvalita a péče o každý detail.
               </p>
+              <div className="flex gap-3">
+                <a href="#" className="text-neutral-400 hover:text-brand-ivory transition-colors">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+                <a href="#" className="text-neutral-400 hover:text-brand-ivory transition-colors">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
+                    <path d="M12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </a>
+              </div>
             </div>
             <div>
               <h6 className="font-medium text-brand-ivory mb-4">Obchod</h6>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-brand-ivory transition-colors">Katalog produktů</a></li>
-                <li><a href="#" className="hover:text-brand-ivory transition-colors">AI Color-Match</a></li>
-                <li><a href="#" className="hover:text-brand-ivory transition-colors">Nová kolekce</a></li>
+                <li><Link href="/obchod" className="hover:text-brand-ivory transition-colors">Katalog produktů</Link></li>
+                <li><Link href="/ai-color-match" className="hover:text-brand-ivory transition-colors">AI Color-Match</Link></li>
+                <li><Link href="/galerie" className="hover:text-brand-ivory transition-colors">Galerie Before/After</Link></li>
+                <li><Link href="/recenze" className="hover:text-brand-ivory transition-colors">Recenze</Link></li>
               </ul>
             </div>
             <div>
-              <h6 className="font-medium text-brand-ivory mb-4">Podpora</h6>
+              <h6 className="font-medium text-brand-ivory mb-4">Průvodce</h6>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-brand-ivory transition-colors">Kontakt</a></li>
-                <li><a href="#" className="hover:text-brand-ivory transition-colors">FAQ</a></li>
-                <li><a href="#" className="hover:text-brand-ivory transition-colors">Doprava a platba</a></li>
+                <li><Link href="/navody" className="hover:text-brand-ivory transition-colors">Návody na aplikaci</Link></li>
+                <li><Link href="/pruvodce" className="hover:text-brand-ivory transition-colors">Kolik gramů potřebuji?</Link></li>
+                <li><Link href="/faq" className="hover:text-brand-ivory transition-colors">FAQ</Link></li>
+                <li><Link href="/kontakt" className="hover:text-brand-ivory transition-colors">Kontakt</Link></li>
               </ul>
             </div>
             <div>
-              <h6 className="font-medium text-brand-ivory mb-4">B2B</h6>
+              <h6 className="font-medium text-brand-ivory mb-4">Zákaznický servis</h6>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-brand-ivory transition-colors">Pro kadeřnice</a></li>
-                <li><a href="#" className="hover:text-brand-ivory transition-colors">Velkoobchod</a></li>
-                <li><a href="#" className="hover:text-brand-ivory transition-colors">Registrace</a></li>
+                <li><Link href="/doprava-a-platba" className="hover:text-brand-ivory transition-colors">Doprava a platba</Link></li>
+                <li><Link href="/obchodni-podminky" className="hover:text-brand-ivory transition-colors">Obchodní podmínky</Link></li>
+                <li><Link href="/reklamacni-rad" className="hover:text-brand-ivory transition-colors">Reklamační řád</Link></li>
+                <li><Link href="/ochrana-osobnich-udaju" className="hover:text-brand-ivory transition-colors">GDPR</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h6 className="font-medium text-brand-ivory mb-4">B2B & Účet</h6>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/pro-kadernice" className="hover:text-brand-ivory transition-colors">Pro kadeřnice</Link></li>
+                <li><Link href="/prihlasit" className="hover:text-brand-ivory transition-colors">Přihlásit se</Link></li>
+                <li><Link href="/registrace" className="hover:text-brand-ivory transition-colors">Registrace</Link></li>
+                <li><Link href="/o-nas" className="hover:text-brand-ivory transition-colors">O nás</Link></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-neutral-800 pt-8 text-sm text-center">
-            <p>© 2025 Múza Hair. Všechna práva vyhrazena.</p>
+
+          {/* Newsletter Signup */}
+          <div className="border-t border-b border-neutral-800 py-8 mb-8">
+            <div className="max-w-2xl mx-auto text-center">
+              <h6 className="font-medium text-brand-ivory mb-2">Newsletter</h6>
+              <p className="text-sm mb-4">Získej 10% slevu na první nákup a buď první, kdo se dozví o novinkách</p>
+              <form className="flex gap-3 max-w-md mx-auto">
+                <input
+                  type="email"
+                  placeholder="tvuj@email.cz"
+                  className="flex-1 px-4 py-2 rounded-full bg-neutral-800 border border-neutral-700 focus:outline-none focus:border-brand-burgundy text-brand-ivory text-sm"
+                />
+                <button
+                  type="submit"
+                  className="bg-brand-burgundy hover:bg-brand-burgundy-hover text-brand-ivory px-6 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap"
+                >
+                  Přihlásit se
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div className="text-sm text-center">
+            <p className="mb-2">© 2025 Múza Hair s.r.o. • IČO: 12345678 • Všechna práva vyhrazena.</p>
+            <p className="text-neutral-500 text-xs">
+              48h Guarantee • Shade-Swap 14 dní • Odesíláme dnes • Kvalita EE/EU/REMY
+            </p>
           </div>
         </div>
       </footer>

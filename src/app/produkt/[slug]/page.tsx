@@ -225,6 +225,105 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
           </div>
         </div>
 
+        {/* Product Reviews */}
+        <div className="mb-20">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-3xl font-serif text-neutral-900">Recenze zákaznic</h2>
+            <Link href="/recenze" className="text-sm text-brand-burgundy hover:underline">
+              Zobrazit všechny →
+            </Link>
+          </div>
+
+          {/* Rating Summary */}
+          <div className="bg-brand-cream rounded-3xl p-8 border border-brand-sand mb-8">
+            <div className="flex flex-col md:flex-row gap-8">
+              <div className="text-center md:border-r md:border-brand-sand md:pr-8">
+                <div className="text-6xl font-serif text-brand-burgundy mb-2">4.9</div>
+                <div className="flex justify-center gap-1 mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="text-2xl">⭐</span>
+                  ))}
+                </div>
+                <p className="text-sm text-neutral-600">Z 12 recenzí</p>
+              </div>
+              <div className="flex-1">
+                <div className="space-y-2">
+                  {[5, 4, 3, 2, 1].map((stars) => (
+                    <div key={stars} className="flex items-center gap-3">
+                      <span className="text-sm text-neutral-600 w-16">{stars} hvězd</span>
+                      <div className="flex-1 bg-brand-sand rounded-full h-2 overflow-hidden">
+                        <div
+                          className="bg-brand-burgundy h-full"
+                          style={{
+                            width: `${stars === 5 ? 75 : stars === 4 ? 20 : 5}%`,
+                          }}
+                        />
+                      </div>
+                      <span className="text-sm text-neutral-600 w-8">{stars === 5 ? 9 : stars === 4 ? 2 : 1}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Reviews */}
+          <div className="space-y-6">
+            {[
+              {
+                author: 'Lucie K.',
+                rating: 5,
+                date: '2025-10-15',
+                title: 'Perfektní barva!',
+                text: 'Odstín sedí přesně na moje vlasy. AI Color-Match to trefilo na 100%. Aplikace byla snadná.',
+                verified: true,
+              },
+              {
+                author: 'Petra M.',
+                rating: 5,
+                date: '2025-10-08',
+                title: 'Skvělá kvalita',
+                text: 'Vlasy jsou krásně hebké a lesklé. Nosím už měsíc a pořád vypadají jako nové.',
+                verified: true,
+              },
+            ].map((review, idx) => (
+              <div key={idx} className="bg-brand-ivory rounded-2xl p-6 border border-brand-sand">
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <p className="font-medium text-neutral-900">{review.author}</p>
+                      {review.verified && (
+                        <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-xs font-medium">
+                          ✓ Ověřeno
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex gap-1 mb-1">
+                      {[...Array(review.rating)].map((_, i) => (
+                        <span key={i} className="text-lg">⭐</span>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-sm text-neutral-500">
+                    {new Date(review.date).toLocaleDateString('cs-CZ')}
+                  </p>
+                </div>
+                <h4 className="font-medium text-neutral-900 mb-2">{review.title}</h4>
+                <p className="text-neutral-700">{review.text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <Link
+              href="/recenze"
+              className="inline-block bg-brand-burgundy hover:bg-brand-burgundy-hover text-brand-ivory px-8 py-3 rounded-full transition-all"
+            >
+              Zobrazit všechny recenze
+            </Link>
+          </div>
+        </div>
+
         {/* Similar Products */}
         {similarProducts.length > 0 && (
           <div>
