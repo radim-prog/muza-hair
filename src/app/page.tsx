@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-brand-ivory">
@@ -8,9 +10,9 @@ export default function HomePage() {
             <div className="flex items-center space-x-12">
               <h1 className="text-2xl font-serif text-brand-burgundy">Múza Hair</h1>
               <div className="hidden md:flex space-x-8">
-                <a href="#" className="text-neutral-700 hover:text-brand-burgundy transition-colors text-sm">
+                <Link href="/obchod" className="text-neutral-700 hover:text-brand-burgundy transition-colors text-sm">
                   Obchod
-                </a>
+                </Link>
                 <a href="#" className="text-neutral-700 hover:text-brand-burgundy transition-colors text-sm">
                   AI Color-Match
                 </a>
@@ -53,9 +55,9 @@ export default function HomePage() {
               <button className="bg-brand-burgundy hover:bg-brand-burgundy-hover text-brand-ivory px-10 py-4 rounded-full text-base font-medium transition-all shadow-soft-lg">
                 Najdi svůj odstín (AI)
               </button>
-              <button className="border-2 border-brand-burgundy text-brand-burgundy hover:bg-brand-burgundy hover:text-brand-ivory px-10 py-4 rounded-full text-base font-medium transition-all">
+              <Link href="/obchod" className="border-2 border-brand-burgundy text-brand-burgundy hover:bg-brand-burgundy hover:text-brand-ivory px-10 py-4 rounded-full text-base font-medium transition-all text-center">
                 Procházet katalog
-              </button>
+              </Link>
             </div>
           </div>
         </div>
