@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { MOCK_PRODUCTS, SHADES, getShadeInfo } from '@/lib/mock-data';
 import { ApplicationMethod, ShadeCode, Product } from '@/lib/types';
+import { Navigation } from '@/components/Navigation';
 
 export default function ObchodPage() {
   // Filter state
@@ -29,19 +30,7 @@ export default function ObchodPage() {
 
   return (
     <div className="min-h-screen bg-brand-ivory">
-      {/* Navigation */}
-      <nav className="border-b border-brand-sand bg-brand-ivory/95 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <Link href="/" className="text-2xl font-serif text-brand-burgundy">
-              Múza Hair
-            </Link>
-            <button className="bg-brand-burgundy hover:bg-brand-burgundy-hover text-brand-ivory px-6 py-2.5 rounded-full transition-all shadow-soft text-sm">
-              Košík (0)
-            </button>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
