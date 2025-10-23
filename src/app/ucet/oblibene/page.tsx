@@ -105,34 +105,30 @@ export default function OblibenePage() {
   };
 
   const handleAddToCart = (product: FavoriteProduct) => {
-    addItem({
-      productId: product.id,
-      product: {
-        id: product.id,
-        name: product.name,
-        slug: product.slug,
-        method: product.method as any,
-        shade: product.shade as any,
-        length: product.length,
-        quality: product.quality as any,
-        pricePerGram: product.pricePerGram,
-        minGrams: 50,
-        maxGrams: 200,
-        stepGrams: 10,
-        stockGrams: 500,
-        status: 'active',
-        images: [product.image],
-        description: '',
-        features: [],
-        careInstructions: [],
-        applicationTime: 0,
-        durability: 0,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-      grams: 100,
+    const fullProduct = {
+      id: product.id,
+      name: product.name,
+      slug: product.slug,
+      method: product.method as any,
+      shade: product.shade as any,
+      length: product.length,
+      quality: product.quality as any,
       pricePerGram: product.pricePerGram,
-    });
+      minGrams: 50,
+      maxGrams: 200,
+      stepGrams: 10,
+      stockGrams: 500,
+      status: 'active' as const,
+      images: [product.image],
+      description: '',
+      features: [],
+      careInstructions: [],
+      applicationTime: 0,
+      durability: 0,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    addItem(fullProduct, 100);
   };
 
   // Filter
