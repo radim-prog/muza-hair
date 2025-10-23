@@ -120,6 +120,7 @@ export default function OblibenePage() {
       stockGrams: 500,
       status: 'active' as const,
       images: [product.image],
+      thumbnail: product.image,
       description: '',
       features: [],
       careInstructions: [],
