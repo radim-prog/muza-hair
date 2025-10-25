@@ -8,6 +8,7 @@ import { Navigation } from '@/components/Navigation';
 
 export default function ObchodPage() {
   // Filter state
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedMethod, setSelectedMethod] = useState<ApplicationMethod | 'all'>('all');
   const [selectedShade, setSelectedShade] = useState<ShadeCode | 'all'>('all');
   const [selectedLength, setSelectedLength] = useState<number | 'all'>('all');
@@ -21,103 +22,140 @@ export default function ObchodPage() {
   // Filter products
   const filteredProducts = useMemo(() => {
     return MOCK_PRODUCTS.filter((product) => {
+      // Search filter
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        const shadeInfo = getShadeInfo(product.shade);
+        const searchableText = `${product.shade} ${shadeInfo?.name} ${product.length}cm ${product.method}`.toLowerCase();
+        if (!searchableText.includes(query)) return false;
+      }
+
       if (selectedMethod !== 'all' && product.method !== selectedMethod) return false;
       if (selectedShade !== 'all' && product.shade !== selectedShade) return false;
       if (selectedLength !== 'all' && product.length !== selectedLength) return false;
       return product.status === 'active';
     });
-  }, [selectedMethod, selectedShade, selectedLength]);
+  }, [searchQuery, selectedMethod, selectedShade, selectedLength]);
 
   return (
-    <div className="min-h-screen bg-brand-ivory">
+    <div className="min-h-screen bg-neutral-50">
       <Navigation />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h1 className="text-5xl font-serif text-neutral-900 mb-4">Obchod</h1>
           <p className="text-lg text-neutral-600">
             Vlasové extenze po gramech • 10 S-odstínů • Kvalita EE/EU/REMY
           </p>
         </div>
 
-        {/* Filters */}
-        <div className="bg-brand-cream rounded-3xl p-8 mb-12 border border-brand-sand">
-          <h3 className="text-xl font-serif text-neutral-900 mb-6">Filtrovat produkty</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Method filter */}
-            <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-3">
-                Metoda aplikace
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {(['all', 'TAPE', 'ITIP', 'WEFT'] as const).map((method) => (
-                  <button
-                    key={method}
-                    onClick={() => setSelectedMethod(method)}
-                    className={`px-4 py-2 rounded-full text-sm transition-all ${
-                      selectedMethod === method
-                        ? 'bg-brand-burgundy text-brand-ivory shadow-soft'
-                        : 'bg-brand-ivory text-neutral-700 hover:bg-brand-sand border border-brand-sand'
-                    }`}
-                  >
-                    {method === 'all' ? 'Všechny' : method}
-                  </button>
-                ))}
-              </div>
+        {/* Horizontal Filters */}
+        <div className="mb-12 space-y-6">
+          {/* Row 1: Search Bar */}
+          <div className="relative">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Hledat podle odstínu, délky nebo kolekce..."
+              className="w-full px-6 py-4 rounded-full border border-brand-sand bg-white text-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-burgundy/20 text-base"
+            />
+            <div className="absolute right-4 top-1/2 -translate-y-1/2">
+              <svg className="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
             </div>
+          </div>
 
-            {/* Shade filter */}
-            <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-3">
-                Odstín
-              </label>
-              <select
-                value={selectedShade}
-                onChange={(e) => setSelectedShade(e.target.value as ShadeCode | 'all')}
-                className="w-full px-4 py-2.5 rounded-full border border-brand-sand bg-brand-ivory text-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-burgundy/20"
-              >
-                <option value="all">Všechny odstíny</option>
-                {SHADES.map((shade) => (
-                  <option key={shade.code} value={shade.code}>
-                    {shade.code} - {shade.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+          {/* Row 2: Text Filters */}
+          <div className="flex flex-wrap gap-3 items-center">
+            <span className="text-sm text-neutral-600 font-medium">Filtrovat:</span>
 
             {/* Length filter */}
-            <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-3">
-                Délka
-              </label>
-              <select
-                value={selectedLength}
-                onChange={(e) =>
-                  setSelectedLength(e.target.value === 'all' ? 'all' : Number(e.target.value))
-                }
-                className="w-full px-4 py-2.5 rounded-full border border-brand-sand bg-brand-ivory text-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-burgundy/20"
-              >
-                <option value="all">Všechny délky</option>
-                {availableLengths.map((length) => (
-                  <option key={length} value={length}>
-                    {length} cm
-                  </option>
+            <select
+              value={selectedLength}
+              onChange={(e) =>
+                setSelectedLength(e.target.value === 'all' ? 'all' : Number(e.target.value))
+              }
+              className="px-4 py-2 rounded-full border border-brand-sand bg-white text-neutral-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-burgundy/20 hover:border-brand-burgundy/30 transition-all cursor-pointer"
+            >
+              <option value="all">Délka</option>
+              {availableLengths.map((length) => (
+                <option key={length} value={length}>
+                  {length} cm
+                </option>
+              ))}
+            </select>
+
+            {/* Method filter (as dropdown for consistency) */}
+            <select
+              value={selectedMethod}
+              onChange={(e) => setSelectedMethod(e.target.value as ApplicationMethod | 'all')}
+              className="px-4 py-2 rounded-full border border-brand-sand bg-white text-neutral-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-burgundy/20 hover:border-brand-burgundy/30 transition-all cursor-pointer"
+            >
+              <option value="all">Metoda</option>
+              <option value="TAPE">TAPE</option>
+              <option value="ITIP">ITIP</option>
+              <option value="WEFT">WEFT</option>
+            </select>
+
+            <button className="px-4 py-2 rounded-full border border-brand-sand bg-white text-neutral-700 text-sm hover:border-brand-burgundy/30 transition-all">
+              Struktura
+            </button>
+            <button className="px-4 py-2 rounded-full border border-brand-sand bg-white text-neutral-700 text-sm hover:border-brand-burgundy/30 transition-all">
+              Ekolekce
+            </button>
+            <button className="px-4 py-2 rounded-full border border-brand-sand bg-white text-neutral-700 text-sm hover:border-brand-burgundy/30 transition-all">
+              Kolekce
+            </button>
+          </div>
+
+          {/* Row 3: Color Swatches */}
+          <div className="bg-white rounded-full px-6 py-4 border border-brand-sand">
+            <div className="flex items-center gap-3 overflow-x-auto">
+              <span className="text-sm text-neutral-600 font-medium whitespace-nowrap">Odstín:</span>
+              <div className="flex gap-2">
+                {SHADES.map((shade) => (
+                  <button
+                    key={shade.code}
+                    onClick={() => setSelectedShade(selectedShade === shade.code ? 'all' : shade.code)}
+                    className={`w-10 h-10 rounded-full border-2 transition-all hover:scale-110 ${
+                      selectedShade === shade.code
+                        ? 'border-brand-burgundy ring-2 ring-brand-burgundy/20'
+                        : 'border-brand-sand hover:border-brand-burgundy/30'
+                    }`}
+                    style={{ backgroundColor: shade.color }}
+                    title={`${shade.code} - ${shade.name}`}
+                  />
                 ))}
-              </select>
+              </div>
             </div>
           </div>
 
           {/* Results count */}
-          <div className="mt-6 pt-6 border-t border-brand-sand">
-            <p className="text-sm text-neutral-600">
+          <div className="flex justify-between items-center text-sm">
+            <p className="text-neutral-600">
               Nalezeno <span className="font-semibold text-brand-burgundy">{filteredProducts.length}</span> produktů
             </p>
+            {(searchQuery || selectedMethod !== 'all' || selectedShade !== 'all' || selectedLength !== 'all') && (
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedMethod('all');
+                  setSelectedShade('all');
+                  setSelectedLength('all');
+                }}
+                className="text-brand-burgundy hover:text-brand-burgundy-hover transition-colors"
+              >
+                Resetovat filtry
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Products Grid - 6 columns */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
@@ -149,65 +187,46 @@ export default function ObchodPage() {
 function ProductCard({ product }: { product: Product }) {
   const shadeInfo = getShadeInfo(product.shade);
 
+  // Collection name based on quality
+  const collectionName = product.quality === 'EU' ? 'Premium Collection' :
+                        product.quality === 'REMY' ? 'Luxury Collection' :
+                        'Essential Collection';
+
   return (
     <Link
       href={`/produkt/${product.slug}`}
-      className="group bg-brand-ivory rounded-3xl overflow-hidden border border-brand-sand hover:border-brand-burgundy/30 hover:shadow-soft-lg transition-all"
+      className="group bg-white rounded-2xl overflow-hidden border border-brand-sand hover:border-brand-burgundy/30 hover:shadow-soft transition-all"
     >
       {/* Image placeholder */}
-      <div className="aspect-[4/3] bg-gradient-to-br from-brand-cream to-brand-sand relative overflow-hidden">
+      <div className="aspect-square bg-gradient-to-br from-brand-cream to-brand-sand relative overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
             <div
-              className="w-20 h-20 rounded-full mx-auto mb-3 border-2 border-white shadow-soft"
+              className="w-16 h-16 rounded-full mx-auto border border-white/50 shadow-soft"
               style={{ backgroundColor: shadeInfo?.color }}
             ></div>
-            <p className="text-sm text-neutral-600">{product.method}</p>
           </div>
         </div>
-        {/* Stock badge */}
-        {product.stockGrams < 100 && (
-          <div className="absolute top-4 right-4 bg-brand-burgundy text-brand-ivory px-3 py-1 rounded-full text-xs font-medium">
-            Poslední kusy
-          </div>
-        )}
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        {/* Method badge */}
-        <div className="flex items-center gap-2 mb-3">
-          <span className="px-3 py-1 bg-brand-cream text-brand-burgundy rounded-full text-xs font-medium">
-            {product.method}
-          </span>
-          <span className="px-3 py-1 bg-brand-cream text-neutral-700 rounded-full text-xs">
-            {product.length}cm
-          </span>
-        </div>
-
-        {/* Name */}
-        <h3 className="text-xl font-serif text-neutral-900 mb-2 group-hover:text-brand-burgundy transition-colors">
+      <div className="p-4">
+        {/* Product Name (using shade name) */}
+        <h3 className="text-base font-medium text-neutral-900 mb-1 group-hover:text-brand-burgundy transition-colors">
           {shadeInfo?.name}
         </h3>
 
-        {/* Shade code */}
-        <p className="text-sm text-neutral-600 mb-4">
-          {product.shade} • {product.quality} kvalita
+        {/* Collection Name */}
+        <p className="text-xs text-neutral-500 mb-2">
+          {collectionName}
         </p>
 
-        {/* Price */}
-        <div className="flex items-baseline justify-between">
-          <div>
-            <span className="text-2xl font-serif text-brand-burgundy">{product.pricePerGram} Kč</span>
-            <span className="text-sm text-neutral-600 ml-1">/gram</span>
-          </div>
-          <span className="text-sm text-neutral-500">Min. {product.minGrams}g</span>
+        {/* Details - Length and Min Grams */}
+        <div className="flex items-center gap-2 text-xs text-neutral-600">
+          <span>{product.length} cm</span>
+          <span>•</span>
+          <span>{product.minGrams} g</span>
         </div>
-
-        {/* CTA */}
-        <button className="w-full mt-4 bg-brand-burgundy text-brand-ivory py-3 rounded-full text-sm font-medium group-hover:bg-brand-burgundy-hover transition-all">
-          Zobrazit detail
-        </button>
       </div>
     </Link>
   );

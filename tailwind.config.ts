@@ -35,7 +35,7 @@ export default {
           '300': '#DFD8D2',
           '200': '#EFEAE4',
           '100': '#F7F4F0',
-          '50': '#FBFAF8',
+          '50': '#FBFBF9',        // Main background color (warm beige)
           '0': '#FFFFFF',
         },
         // S-Shade swatches

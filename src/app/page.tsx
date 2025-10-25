@@ -3,37 +3,79 @@ import { Navigation } from '@/components/Navigation';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-brand-ivory">
+    <div className="min-h-screen bg-neutral-50">
       <Navigation />
 
-      {/* Hero Section - warm, elegant */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-brand-cream to-brand-ivory">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-          <div className="text-center max-w-4xl mx-auto">
-            <h2 className="text-5xl md:text-7xl font-serif text-neutral-900 mb-6 leading-tight">
-              Vlasové extenze
-              <br />
-              <span className="text-brand-burgundy italic">s AI Color-Match</span>
-            </h2>
-            <p className="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto mb-4 leading-relaxed">
-              Prodej po gramech • 10 S-odstínů • Kvalita EE/EU
-            </p>
-            <p className="text-sm text-neutral-500 mb-10">
-              Shade-Swap 14 dní • 48h Guarantee • Odesíláme dnes
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-brand-burgundy hover:bg-brand-burgundy-hover text-brand-ivory px-10 py-4 rounded-full text-base font-medium transition-all shadow-soft-lg">
-                Najdi svůj odstín (AI)
-              </button>
-              <Link href="/obchod" className="border-2 border-brand-burgundy text-brand-burgundy hover:bg-brand-burgundy hover:text-brand-ivory px-10 py-4 rounded-full text-base font-medium transition-all text-center">
-                Procházet katalog
+      {/* Hero Section - Two Column Layout */}
+      <section className="relative overflow-hidden bg-neutral-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Text */}
+            <div>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif text-neutral-900 mb-6 leading-tight">
+                Vlasy, které milujete na první dotek.
+              </h1>
+              <p className="text-lg md:text-xl text-neutral-600 mb-8 leading-relaxed max-w-xl">
+                Ručně tříděné culíky z ateliérů Múza Hair. Každý pramen vybíráme s péčí, abyste měli jistotu, že vaše nové vlasy jsou dokonalé.
+              </p>
+              <Link
+                href="/obchod"
+                className="inline-block bg-brand-burgundy hover:bg-brand-burgundy-hover text-brand-ivory px-10 py-4 rounded-full text-base font-medium transition-all shadow-soft-lg"
+              >
+                Zobrazit kolekci
               </Link>
+            </div>
+
+            {/* Right Column - Image */}
+            <div className="relative">
+              <div className="aspect-[4/5] bg-gradient-to-br from-brand-cream to-brand-sand rounded-3xl overflow-hidden shadow-soft-lg">
+                {/* Placeholder for image - replace with actual image */}
+                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-shade-s04 to-shade-s05">
+                  <div className="text-center text-white/80 p-8">
+                    <p className="text-sm font-medium">Hero Image</p>
+                    <p className="text-xs mt-2">Vlnité hnědé vlasy</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Subtle decoration */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-brand-rose/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+      {/* Atelier Múza Hair Section */}
+      <section className="bg-brand-cream py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Image */}
+            <div className="relative">
+              <div className="aspect-[4/5] bg-gradient-to-br from-brand-sand to-brand-taupe rounded-3xl overflow-hidden shadow-soft-lg">
+                {/* Placeholder for image - replace with actual image */}
+                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-shade-s06 to-shade-s07">
+                  <div className="text-center text-neutral-800/80 p-8">
+                    <p className="text-sm font-medium">Atelier Image</p>
+                    <p className="text-xs mt-2">Žena s rovnými vlasy</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Text */}
+            <div>
+              <h2 className="text-4xl md:text-5xl font-serif text-neutral-900 mb-6 leading-tight">
+                Atelier Múza Hair
+              </h2>
+              <p className="text-lg text-neutral-700 leading-relaxed mb-6">
+                Naše kolekce vzniká v malých dávkách, s důrazem na kvalitu a autenticitu. Každý kus je pečlivě vybrán a zkontrolován našimi odborníky.
+              </p>
+              <p className="text-lg text-neutral-700 leading-relaxed mb-6">
+                Věříme, že krása je v detailech. Proto každý pramen procházíme ručně a vybíráme pouze ty nejkvalitnější vlasy z etických zdrojů v Evropě.
+              </p>
+              <p className="text-base text-neutral-600 leading-relaxed">
+                S láskou k vlasům a péčí o každou zákaznici vytváříme extenze, které splňují ty nejvyšší standardy.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* S-Swatches Preview - warm presentation */}
